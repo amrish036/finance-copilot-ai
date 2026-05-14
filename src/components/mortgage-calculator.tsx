@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 
 import { Card, Input } from "@/components/ui";
 
-import { calculateMortgage } from "@/lib/calculators";
+import { calculateMortgage } from "@/lib/calculations";
 
 import { formatCurrency } from "@/lib/utils";
 

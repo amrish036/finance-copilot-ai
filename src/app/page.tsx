@@ -1,4 +1,4 @@
-import { MortgageCalculator } from "@/components";
+import { MortgageCalculator, AffordabilityCalculator } from "@/components";
 
 export default function HomePage() {
   return (
@@ -20,6 +20,7 @@ export default function HomePage() {
         </div>
 
         <MortgageCalculator />
+        <AffordabilityCalculator />
       </div>
     </main>
   );

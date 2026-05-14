@@ -1,1 +1,0 @@
-export { calculateMortgage } from "./mortgage";
