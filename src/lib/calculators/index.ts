@@ -1,1 +1,1 @@
-export { default as calculateMortgage } from "./mortgage";
+export { calculateMortgage } from "./mortgage";

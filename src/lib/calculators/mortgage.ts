@@ -4,13 +4,21 @@ export type MortgageInput = {
   loanTermYears: number;
 };
 
+export type AmortizationRow = {
+  month: number;
+  principalPaid: number;
+  interestPaid: number;
+  remainingBalance: number;
+};
+
 export type MortgageResult = {
   monthlyRepayment: number;
   totalRepayment: number;
   totalInterest: number;
+  amortizationSchedule: AmortizationRow[];
 };
 
-export default function calculateMortgage({
+export function calculateMortgage({
   loanAmount,
   interestRate,
   loanTermYears,
@@ -20,6 +28,7 @@ export default function calculateMortgage({
       monthlyRepayment: 0,
       totalRepayment: 0,
       totalInterest: 0,
+      amortizationSchedule: [],
     };
   }
 
@@ -34,9 +43,29 @@ export default function calculateMortgage({
 
   const totalInterest = totalRepayment - loanAmount;
 
+  let remainingBalance = loanAmount;
+
+  const amortizationSchedule: AmortizationRow[] = [];
+
+  for (let month = 1; month <= totalPayments; month++) {
+    const interestPaid = remainingBalance * monthlyRate;
+
+    const principalPaid = monthlyRepayment - interestPaid;
+
+    remainingBalance -= principalPaid;
+
+    amortizationSchedule.push({
+      month,
+      principalPaid,
+      interestPaid,
+      remainingBalance: remainingBalance > 0 ? remainingBalance : 0,
+    });
+  }
+
   return {
     monthlyRepayment,
     totalRepayment,
     totalInterest,
+    amortizationSchedule,
   };
 }

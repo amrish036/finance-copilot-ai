@@ -1,4 +1,4 @@
-import { MortgageCalculator } from "@/components/mortgage-calculator";
+import { MortgageCalculator } from "@/components";
 
 export default function HomePage() {
   return (
