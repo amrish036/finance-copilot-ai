@@ -1,5 +1,7 @@
 import Groq from "groq-sdk";
 
+import { analyzeScenario } from "@/lib/ai/financial-tools";
+
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
@@ -10,29 +12,36 @@ export async function POST(req: Request) {
 
     const messages = body.messages || [];
 
+    const financialAnalysis = analyzeScenario();
+
     const completion = await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
+      model: "llama-3.1-8b-instant",
 
       messages: [
         {
           role: "system",
           content: `
-You are a professional AI mortgage and finance assistant.
+You are an AI mortgage and finance advisor.
+
+You MUST use the provided financial analysis data to answer users accurately.
+
+FINANCIAL ANALYSIS:
+
+Monthly repayment: ${Math.round(financialAnalysis.mortgage.monthlyRepayment)}
+
+Estimated borrowing power: ${Math.round(financialAnalysis.affordability.estimatedBorrowingPower)}
+
+Risk level: ${financialAnalysis.affordability.affordabilityStatus}
 
 Your role:
-- help users understand affordability
-- explain mortgage concepts
-- discuss budgeting and repayments
-- provide educational financial insights
-- NEVER claim to be a licensed financial advisor
-- NEVER provide guaranteed financial outcomes
-- Always encourage responsible borrowing
+- explain affordability
+- discuss repayment risks
+- explain budgeting
+- provide educational insights
+- avoid pretending to be a licensed advisor
+- encourage financially safe decisions
 
-Keep responses:
-- concise
-- practical
-- beginner friendly
-- financially responsible
+Be concise and practical.
             `,
         },
 
