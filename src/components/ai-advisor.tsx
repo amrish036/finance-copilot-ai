@@ -96,6 +96,11 @@ export function AIAdvisor() {
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !loading) {
+              sendMessage();
+            }
+          }}
           placeholder="Ask about mortgages or affordability..."
           className="border-white/10 bg-slate-950/50 text-white"
         />

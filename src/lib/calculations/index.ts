@@ -1,2 +1,2 @@
-export { calculateMortgage } from "./mortgage";
-export { calculateAffordability } from "./affordability";
+export * from "./mortgage";
+export * from "./affordability";

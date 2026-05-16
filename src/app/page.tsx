@@ -22,10 +22,9 @@ export default function HomePage() {
             financial insights with your personal finance copilot.
           </p>
         </div>
-
+        <AIAdvisor />
         <MortgageCalculator />
         <AffordabilityCalculator />
-        <AIAdvisor />
       </div>
     </main>
   );
