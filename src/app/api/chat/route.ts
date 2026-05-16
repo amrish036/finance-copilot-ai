@@ -1,6 +1,6 @@
 import Groq from "groq-sdk";
 
-import { executeTool } from "@/lib/ai/tool-executor";
+import { executeTool } from "@/lib/ai";
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -95,8 +95,7 @@ function inferToolCall(message: string) {
           4000,
         monthlyDebts:
           extractNumberAfter(message, ["debts", "debt", "loans"]) ?? 500,
-        interestRate:
-          extractNumberAfter(message, ["interest", "rate"]) ?? 6.1,
+        interestRate: extractNumberAfter(message, ["interest", "rate"]) ?? 6.1,
       },
     };
   }
@@ -110,8 +109,7 @@ function inferToolCall(message: string) {
           extractLikelyLoanAmount(message) ??
           extractNumberAfter(message, ["mortgage", "amount", "borrow"]) ??
           900000,
-        interestRate:
-          extractNumberAfter(message, ["interest", "rate"]) ?? 6.1,
+        interestRate: extractNumberAfter(message, ["interest", "rate"]) ?? 6.1,
         loanTermYears:
           extractNumberAfter(message, ["term", "years", "year"]) ??
           extractNumberBefore(message, ["years", "year"]) ??

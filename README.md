@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Copilot AI
+
+An AI-assisted mortgage and affordability dashboard built with Next.js, React, Tailwind CSS, Recharts, and Groq.
+
+The app helps users estimate mortgage repayments, understand borrowing power, compare scenarios, and ask finance questions through an AI advisor.
+
+Loom Video:
+
+<div>
+    <a href="https://www.loom.com/share/03a146fc52784a8797e08b2b33930757">
+      <p>Smarter Mortgage - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/03a146fc52784a8797e08b2b33930757">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/03a146fc52784a8797e08b2b33930757-8ad982d85faa5fb8-full-play.gif#t=0.1">
+    </a>
+  </div>
+
+## Features
+
+- Mortgage repayment calculator with monthly repayment, total repayment, and total interest estimates
+- Affordability analyzer for income, expenses, debts, borrowing power, and risk level
+- AI financial advisor powered by Groq
+- Scenario comparison table for multiple loan setups
+- Currency formatting for Australian dollars
+- Chat parsing for values like `500k`, `$650,000`, and `1.2m`
+
+## Tech Stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Groq SDK
+- Recharts
+- shadcn-style UI primitives
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create `.env.local` in the project root:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+GROQ_API_KEY=your_groq_api_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the development server:
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm dev      # Start the local dev server
+pnpm build    # Create a production build
+pnpm start    # Start the production server
+pnpm lint     # Run ESLint
+```
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+src/app/page.tsx              Main dashboard page
+src/app/api/chat/route.ts     AI chat API route
+src/components/               App UI components
+src/components/ui/            Shared UI primitives
+src/lib/calculations/         Mortgage and affordability calculations
+src/lib/ai/                   AI tool registry and executor
+src/lib/utils/                Formatting and className helpers
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+The calculators are estimates only and should not be treated as financial advice. Real borrowing capacity depends on lender policy, fees, buffers, credit history, dependants, living expenses, and other obligations.
+
+The AI chat route keeps calculator payloads compact before sending data to Groq, so large mortgage amortization schedules do not exceed token limits.

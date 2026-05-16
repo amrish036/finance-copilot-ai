@@ -2,6 +2,7 @@ import {
   MortgageCalculator,
   AffordabilityCalculator,
   AIAdvisor,
+  ScenarioComparison,
 } from "@/components";
 
 export default function HomePage() {
@@ -22,9 +23,10 @@ export default function HomePage() {
             financial insights with your personal finance copilot.
           </p>
         </div>
-        <AIAdvisor />
         <MortgageCalculator />
         <AffordabilityCalculator />
+        <AIAdvisor />
+        <ScenarioComparison />
       </div>
     </main>
   );
