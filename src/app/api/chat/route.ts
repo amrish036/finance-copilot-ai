@@ -47,6 +47,36 @@ function extractNumberAfter(message: string, keywords: string[]) {
   return undefined;
 }
 
+function extractNumberBefore(message: string, keywords: string[]) {
+  for (const keyword of keywords) {
+    const match = message.match(
+      new RegExp(`\\$?([0-9][0-9,.]*)([kKmM])?[^0-9]*${keyword}`, "i"),
+    );
+
+    if (match) {
+      return parseMoneyValue(match[1], match[2]);
+    }
+  }
+
+  return undefined;
+}
+
+function extractLikelyLoanAmount(message: string) {
+  const matches = message.matchAll(/\$?([0-9][0-9,.]*)([kKmM])?/g);
+
+  for (const match of matches) {
+    const value = parseMoneyValue(match[1], match[2]);
+    const hasMoneySuffix = Boolean(match[2]);
+    const hasDollarSign = match[0].startsWith("$");
+
+    if (hasMoneySuffix || hasDollarSign || value >= 10_000) {
+      return value;
+    }
+  }
+
+  return undefined;
+}
+
 function inferToolCall(message: string) {
   const lowerMessage = message.toLowerCase();
 
@@ -76,12 +106,16 @@ function inferToolCall(message: string) {
       tool: "calculateMortgage",
       args: {
         loanAmount:
-          extractNumberAfter(message, ["loan", "mortgage", "amount"]) ??
+          extractNumberBefore(message, ["loan", "mortgage", "borrow"]) ??
+          extractLikelyLoanAmount(message) ??
+          extractNumberAfter(message, ["mortgage", "amount", "borrow"]) ??
           900000,
         interestRate:
           extractNumberAfter(message, ["interest", "rate"]) ?? 6.1,
         loanTermYears:
-          extractNumberAfter(message, ["term", "years", "year"]) ?? 30,
+          extractNumberAfter(message, ["term", "years", "year"]) ??
+          extractNumberBefore(message, ["years", "year"]) ??
+          30,
       },
     };
   }
