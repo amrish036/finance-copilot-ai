@@ -7,10 +7,10 @@ The app helps users estimate mortgage repayments, understand borrowing power, co
 Loom Video:
 
 <div>
-    <a href="https://www.loom.com/share/03a146fc52784a8797e08b2b33930757">
+    <a href="https://www.loom.com/share/03a146fc52784a8797e08b2b33930757" target="_blank" rel="noopener noreferrer">
       <p>Smarter Mortgage - Watch Video</p>
     </a>
-    <a href="https://www.loom.com/share/03a146fc52784a8797e08b2b33930757">
+    <a href="https://www.loom.com/share/03a146fc52784a8797e08b2b33930757" target="_blank" rel="noopener noreferrer">
       <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/03a146fc52784a8797e08b2b33930757-8ad982d85faa5fb8-full-play.gif#t=0.1">
     </a>
   </div>
